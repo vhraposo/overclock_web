@@ -1,11 +1,13 @@
 import { FaArrowDown, FaArrowUp, FaClock } from 'react-icons/fa';
 import { Card } from "../../components/Card";
+import { Header } from '../../components/Header';
 import { Container } from "./styles";
 
 export function Home() {
     return (
         <Container>
-            <div style={{ display: 'flex', gap: '10px' }}>
+            <Header />
+            <div>
                 <Card
                     title="Total Hora/Ano"
                     number="105"
