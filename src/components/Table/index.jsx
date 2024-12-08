@@ -1,12 +1,12 @@
 
 import {
-    ProgressBar,
-    ProgressFill,
-    StyledTable,
-    TableCell,
-    TableContainer,
-    TableHeader,
-    TableRow
+  ProgressBar,
+  ProgressFill,
+  StyledTable,
+  TableCell,
+  TableContainer,
+  TableHeader,
+  TableRow
 } from './styles';
 
 
@@ -62,7 +62,7 @@ const sampleData = [
   },
 ];
 
-export const DevOpsTable = () => {
+export const Table = () => {
   return (
     <TableContainer>
       <StyledTable>

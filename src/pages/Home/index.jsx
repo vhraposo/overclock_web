@@ -1,7 +1,7 @@
 import { FaArrowDown, FaArrowUp, FaClock } from 'react-icons/fa';
 import { Card } from "../../components/Card";
 import { Header } from '../../components/Header';
-import { DevOpsTable } from '../../components/Table';
+import { Table } from '../../components/Table';
 import { Container } from "./styles";
 
 export function Home() {
@@ -31,7 +31,7 @@ export function Home() {
                     iconColor=""
                 />
             </div>
-            <DevOpsTable />
+            <Table />
         </Container>   
     )
 }
