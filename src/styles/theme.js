@@ -10,7 +10,7 @@ export default {
       DARK_100: '#000405',
       DARK_200: '#00070A',
       DARK_300: '#000204',
-      DARK_400: '#000A0F',
+      
       DARK_500: '#000C12',
       DARK_600: '#00111A',
       DARK_700: '#001119',
@@ -27,9 +27,11 @@ export default {
   
       GREEN_100: '#04D361',
   
-      DARKBLUE_100: '#065E7C',
+      DARKBLUE_100: '#0c4e6d',
       LIGHTBLUE_200: '#82F3FF',
       DARKBLUE_600: '#001119',
+
+      LIGHTBLUE: '#f0faff',
     },
   }
   
