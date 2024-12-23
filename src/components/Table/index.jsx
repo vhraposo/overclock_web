@@ -6,69 +6,33 @@ import {
   TableCell,
   TableContainer,
   TableHeader,
-  TableRow
+  TableRow,
+  IconContainer
 } from './styles';
 
+import { GrUpdate } from "react-icons/gr";
+import { RiDeleteBin5Line } from "react-icons/ri";
 
-const IdField = ({ value }) => <TableCell>{value}</TableCell>;
 
-const TicketDevopsField = ({ value }) => <TableCell>{value}</TableCell>;
+export const Table = ({ tasks, onDelete, onEdit }) => {
 
-const TitleField = ({ value }) => <TableCell>{value}</TableCell>;
+  const handleEditClick = (task) => {
+    onEdit(task);
+  };
+  
+  const handleDeleteClick = (id) => {
+    const confirmed = window.confirm("Are you sure you want to delete this task?");
+    if (confirmed) {
+      onDelete(id);
+    }
+  };
 
-const TotalRecordsField = ({ value }) => <TableCell>{value}</TableCell>;
-
-const DateField = ({ value }) => <TableCell>{value}</TableCell>;
-
-const TimeField = ({ estimated, spent }) => (
-  <TableCell>{`${estimated}h / ${spent}h`}</TableCell>
-);
-
-const ProgressField = ({ value }) => (
-  <TableCell>
-    <ProgressBar>
-      <ProgressFill progress={value} />
-    </ProgressBar>
-    {value}%
-  </TableCell>
-);
-
-const StatusField = ({ value }) => <TableCell>{value}</TableCell>;
-
-const sampleData = [
-  {
-    id: 1,
-    ticketDevops: 'DEV-001',
-    title: 'Implement user authentication',
-    totalRecords: 150,
-    start: '2023-06-01',
-    estimatedDelivery: '2023-06-15',
-    estimatedTime: 40,
-    spentTime: 35,
-    progress: 80,
-    status: 'In Progress'
-  },
-  {
-    id: 2,
-    ticketDevops: 'DEV-002',
-    title: 'Optimize database queries',
-    totalRecords: 300,
-    start: '2023-06-05',
-    estimatedDelivery: '2023-06-20',
-    estimatedTime: 30,
-    spentTime: 25,
-    progress: 60,
-    status: 'In Progress'
-  },
-];
-
-export const Table = () => {
   return (
     <TableContainer>
       <StyledTable>
         <thead>
           <tr>
-            <TableHeader>ID</TableHeader>
+          <TableHeader>ID</TableHeader>
             <TableHeader>Ticket-DevOps</TableHeader>
             <TableHeader>Title</TableHeader>
             <TableHeader>Total Records</TableHeader>
@@ -77,20 +41,32 @@ export const Table = () => {
             <TableHeader>Estimated/Spent Time</TableHeader>
             <TableHeader>Progress</TableHeader>
             <TableHeader>Status</TableHeader>
+            <TableHeader>Actions</TableHeader>
           </tr>
         </thead>
         <tbody>
-          {sampleData.map((row) => (
-            <TableRow key={row.id}>
-              <IdField value={row.id} />
-              <TicketDevopsField value={row.ticketDevops} />
-              <TitleField value={row.title} />
-              <TotalRecordsField value={row.totalRecords} />
-              <DateField value={row.start} />
-              <DateField value={row.estimatedDelivery} />
-              <TimeField estimated={row.estimatedTime} spent={row.spentTime} />
-              <ProgressField value={row.progress} />
-              <StatusField value={row.status} />
+          {tasks.filter(task => task.id !== 1).map((task) => (
+            <TableRow key={task.id}>
+              <TableCell>{task.id}</TableCell>
+              <TableCell>{task.ticketDevops}</TableCell>
+              <TableCell>{task.title}</TableCell>
+              <TableCell>{task.totalRecords}</TableCell>
+              <TableCell>{task.start}</TableCell>
+              <TableCell>{task.estimatedDelivery}</TableCell>
+              <TableCell>{task.estimatedSpentTime}h</TableCell>
+              <TableCell>
+                <ProgressBar>
+                  <ProgressFill progress={task.progress} />
+                </ProgressBar>
+                {task.progress}%
+              </TableCell>
+              <TableCell>{task.status}</TableCell>
+              <TableCell>
+                <IconContainer>
+                  <GrUpdate size={12} onClick={() => handleEditClick(task)} />
+                  <RiDeleteBin5Line size={13} onClick={() => handleDeleteClick(task.id)} />
+                </IconContainer>
+              </TableCell>
             </TableRow>
           ))}
         </tbody>

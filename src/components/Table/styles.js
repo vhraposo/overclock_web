@@ -30,7 +30,7 @@ export const TableRow = styled.tr`
   &:nth-child(even) {
     background-color: #d1d5db;
   }
-  color: #000;
+  color: #000;  
 `;
 
 export const TableCell = styled.td`
@@ -51,3 +51,17 @@ export const ProgressFill = styled.div`
   background-color: #4caf50;
 `;
 
+export const IconContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+
+  svg {
+    cursor: pointer;
+  }
+
+  svg:hover {
+  transform: scale(1.2);
+  }
+`;

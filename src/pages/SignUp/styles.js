@@ -24,6 +24,7 @@ export const Container = styled.div`
 
     h1 {
       font-size: clamp(3.7rem, 3.521rem + 0.472vw, 4.2rem);
+      color: black;
     }
 
     @media (min-width: 700px) {
