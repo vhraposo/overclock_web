@@ -69,19 +69,7 @@ export function NewTask({ isModalOpen, closeModal, onSave }) {
                 onChange={handleChange}
               />
             </div>
-    
-            <div>
-              <label htmlFor="totalRecords">Total Records:</label>
-              <input
-                type="number"
-                id="totalRecords"
-                name="totalRecords"
-                placeholder="Digite o total de registros"
-                value={formData.totalRecords}
-                onChange={handleChange}
-              />
-            </div>
-    
+            
             <div>
               <label htmlFor="start">Start:</label>
               <input
@@ -112,6 +100,17 @@ export function NewTask({ isModalOpen, closeModal, onSave }) {
                 name="estimatedSpentTime"
                 placeholder="Ex: 10 / 8"
                 value={formData.estimatedSpentTime}
+                onChange={handleChange}
+              />
+            </div>
+
+            <div>
+              <label htmlFor="analyst">Analyst</label>
+              <input
+                type="text"
+                id="analyst"
+                name="analyst"
+                value={formData.analyst}
                 onChange={handleChange}
               />
             </div>

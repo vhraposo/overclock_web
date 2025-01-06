@@ -10,24 +10,40 @@ import {
   IconContainer
 } from './styles';
 
-import { GrUpdate } from "react-icons/gr";
 import { RiDeleteBin5Line } from "react-icons/ri";
+import { LiaEditSolid } from "react-icons/lia";
+import { IoEyeOutline } from "react-icons/io5";
+import { useState } from 'react';
+import { ConfirmationModal } from '../Confirmation';
 
 
 export const Table = ({ tasks, onDelete, onEdit }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [taskToDelete, setTaskToDelete] = useState(null);
+
 
   const handleEditClick = (task) => {
     onEdit(task);
   };
   
-  const handleDeleteClick = (id) => {
-    const confirmed = window.confirm("Are you sure you want to delete this task?");
-    if (confirmed) {
-      onDelete(id);
-    }
+  const handleDeleteClick = (task) => {
+    setTaskToDelete(task);
+    setIsModalOpen(true);
   };
 
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setTaskToDelete(null);
+  };
+
+  const confirmDelete = () => {
+    onDelete(taskToDelete.id);
+    closeModal();
+  };
+
+
   return (
+
     <TableContainer>
       <StyledTable>
         <thead>
@@ -39,13 +55,14 @@ export const Table = ({ tasks, onDelete, onEdit }) => {
             <TableHeader>Start</TableHeader>
             <TableHeader>Estimated Delivery</TableHeader>
             <TableHeader>Estimated/Spent Time</TableHeader>
+            <TableHeader>Analyst</TableHeader>
             <TableHeader>Progress</TableHeader>
             <TableHeader>Status</TableHeader>
             <TableHeader>Actions</TableHeader>
           </tr>
         </thead>
         <tbody>
-          {tasks.filter(task => task.id !== 1).map((task) => (
+          {tasks.filter(task => task.id !== 0).map((task) => (
             <TableRow key={task.id}>
               <TableCell>{task.id}</TableCell>
               <TableCell>{task.ticketDevops}</TableCell>
@@ -54,6 +71,7 @@ export const Table = ({ tasks, onDelete, onEdit }) => {
               <TableCell>{task.start}</TableCell>
               <TableCell>{task.estimatedDelivery}</TableCell>
               <TableCell>{task.estimatedSpentTime}h</TableCell>
+              <TableCell>{task.analyst}</TableCell>
               <TableCell>
                 <ProgressBar>
                   <ProgressFill progress={task.progress} />
@@ -63,15 +81,24 @@ export const Table = ({ tasks, onDelete, onEdit }) => {
               <TableCell>{task.status}</TableCell>
               <TableCell>
                 <IconContainer>
-                  <GrUpdate size={12} onClick={() => handleEditClick(task)} />
-                  <RiDeleteBin5Line size={13} onClick={() => handleDeleteClick(task.id)} />
+                  <IoEyeOutline size={15} />
+                  <LiaEditSolid size={15} onClick={() => handleEditClick(task)} />
+                  <RiDeleteBin5Line size={13} onClick={() => handleDeleteClick(task)} />
                 </IconContainer>
               </TableCell>
             </TableRow>
           ))}
         </tbody>
       </StyledTable>
-    </TableContainer>
+
+      <ConfirmationModal
+        isOpen={isModalOpen}
+        message={`Você tem certeza que deseja deletar a task "${taskToDelete?.id}" ?`}
+        onConfirm={confirmDelete}
+        onCancel={closeModal}
+      />
+
+    </TableContainer>    
   );
 };
 

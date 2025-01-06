@@ -7,25 +7,30 @@ import { Edit } from "../../components/Att";
 import { Container, Button, Overlay } from "./styles";
 import { useState } from "react";
 
+
 export function Home() {
   const [isOverlayOpen, setIsOverlayOpen] = useState(false);
   const [isNewTaskModalOpen, setIsNewTaskModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [taskToEdit, setTaskToEdit] = useState(null);
+  
 
   const [tasks, setTasks] = useState([
     {
-      id: 1,
+      id: 0,
       ticketDevops: "DEV-001",
       title: "Implement user authentication",
       totalRecords: 150,
       start: "2023-06-01",
       estimatedDelivery: "2023-06-15",
       estimatedSpentTime:"30/40",
+      analyst:"Analista-Teste",
       progress: 80,
       status: "In Progress",
     },
   ]);
+
+  
 
   const openModal = () => {
     setTaskToEdit(null);
@@ -45,7 +50,6 @@ export function Home() {
     setTaskToEdit(null);
   };
 
-  // Função para adicionar uma nova tarefa
   const addTask = (newTask) => {
     setTasks((prevTasks) => [...prevTasks, newTask]);
   };
@@ -58,19 +62,20 @@ export function Home() {
         )
       );
     } else {
-      // Adicionar nova tarefa
       setTasks((prevTasks) => [...prevTasks, taskData]);
     }
   };
 
   const handleEdit = (task) => {
     setTaskToEdit(task);
-    openModalEdit(); // Abre o modal de edição
+    openModalEdit();
   };
 
   const handleDelete = (id) => {
     setTasks((prevData) => prevData.filter((task) => task.id !== id));
   };
+
+  
 
   return (
     <Container>

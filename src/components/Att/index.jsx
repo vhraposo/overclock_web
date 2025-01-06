@@ -9,7 +9,7 @@ export function Edit({ isModalOpen, closeModal, onSave, taskToEdit }) {
     start: "",
     estimatedDelivery: "",
     estimatedSpentTime: "",
-    observation:"",
+    analyst:"",
   });
 
   useEffect(() => {
@@ -21,7 +21,7 @@ export function Edit({ isModalOpen, closeModal, onSave, taskToEdit }) {
         start: taskToEdit.start,
         estimatedDelivery: taskToEdit.estimatedDelivery,
         estimatedSpentTime: taskToEdit.estimatedSpentTime,
-        observation: taskToEdit.observation,
+        analyst: taskToEdit.analyst,
       });
     }
   }, [taskToEdit]);
@@ -52,7 +52,7 @@ export function Edit({ isModalOpen, closeModal, onSave, taskToEdit }) {
       start: "",
       estimatedDelivery: "",
       estimatedSpentTime: "",
-      observation:"",
+      analyst:"",
     });
   };
 
@@ -80,18 +80,6 @@ export function Edit({ isModalOpen, closeModal, onSave, taskToEdit }) {
             name="title"
             placeholder="Digite o título"
             value={formData.title}
-            onChange={handleChange}
-          />
-        </div>
-
-        <div>
-          <label htmlFor="totalRecords">Total Records:</label>
-          <input
-            type="number"
-            id="totalRecords"
-            name="totalRecords"
-            placeholder="Digite o total de registros"
-            value={formData.totalRecords}
             onChange={handleChange}
           />
         </div>
@@ -131,12 +119,12 @@ export function Edit({ isModalOpen, closeModal, onSave, taskToEdit }) {
         </div>
 
         <div>
-          <label htmlFor="observation">Observation</label>
+          <label htmlFor="analyst">Analyst</label>
           <input
             type="text"
-            id="observation"
-            name="observation"
-            value={formData.observation}
+            id="analyst"
+            name="analyst"
+            value={formData.analyst}
             onChange={handleChange}
           />
         </div>
