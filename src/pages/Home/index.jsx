@@ -6,13 +6,17 @@ import { NewTask } from "../../components/Modal";
 import { Edit } from "../../components/Att";
 import { Container, Button, Overlay } from "./styles";
 import { useState } from "react";
+import { ObservationModal } from "../../components/Observation";
 
 
 export function Home() {
   const [isOverlayOpen, setIsOverlayOpen] = useState(false);
   const [isNewTaskModalOpen, setIsNewTaskModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [isObservationModalOpen, setIsObservationModalOpen] = useState(false);
   const [taskToEdit, setTaskToEdit] = useState(null);
+  const [taskToView, setTaskToView] = useState(null);
+  
   
 
   const [tasks, setTasks] = useState([
@@ -28,9 +32,7 @@ export function Home() {
       progress: 80,
       status: "In Progress",
     },
-  ]);
-
-  
+  ]); 
 
   const openModal = () => {
     setTaskToEdit(null);
@@ -43,10 +45,19 @@ export function Home() {
     setIsOverlayOpen(true);
   };
 
+  const openModalObservation = () =>{
+    setIsObservationModalOpen(true);
+    setIsOverlayOpen(true);
+  
+  }
+
+  console.log('isObservationModalOpen:', isObservationModalOpen);
+
   const closeModal = () => {
     setIsNewTaskModalOpen(false);
     setIsEditModalOpen(false);
     setIsOverlayOpen(false);
+    setIsObservationModalOpen(false);
     setTaskToEdit(null);
   };
 
@@ -70,9 +81,31 @@ export function Home() {
     setTaskToEdit(task);
     openModalEdit();
   };
+  
+  const handleView = (task) =>{
+    console.log('Abrindo modal de observação para a task:', task);
+    setTaskToView(task);
+    openModalObservation();
+  }
 
   const handleDelete = (id) => {
     setTasks((prevData) => prevData.filter((task) => task.id !== id));
+  };
+
+  const incrementRecords = (taskId) => {
+    setTasks((prevTasks) =>
+      prevTasks.map((task) =>
+        task.id === taskId ? { ...task, totalRecords: task.totalRecords + 1 } : task
+      )
+    );
+  };
+
+  const handleDecrementRecords = (taskId) => {
+    setTasks((prevTasks) => 
+      prevTasks.map(task => 
+        task.id === taskId ? { ...task, totalRecords: task.totalRecords - 1 } : task
+      )
+    );
   };
 
   
@@ -116,8 +149,17 @@ export function Home() {
         taskToEdit={taskToEdit}
       />
 
+      <ObservationModal
+        isOpen={isObservationModalOpen}
+        task={taskToView}
+        onClose={closeModal}
+        onDelete={handleDelete}
+        onIncrementRecords={incrementRecords}
+        onDecrementRecords={handleDecrementRecords}
+      />
+
       {/* Passar as tarefas para o componente Table */}
-      <Table tasks={tasks} onDelete={handleDelete} onEdit={handleEdit} />
+      <Table tasks={tasks} onDelete={handleDelete} onEdit={handleEdit} onObservation={handleView} />
     </Container>
   );
 }

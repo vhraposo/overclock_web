@@ -39,9 +39,9 @@ export function Edit({ isModalOpen, closeModal, onSave, taskToEdit }) {
     // Envia os dados para o componente pai
     onSave({
       ...formData,
-      id: taskToEdit ? taskToEdit.id : Date.now(), // Se for edição, mantém o ID
-      progress: taskToEdit ? taskToEdit.progress : 0, // Se for edição, mantém o progresso
-      status: taskToEdit ? taskToEdit.status : "In Progress", // Se for edição, mantém o status
+      id: taskToEdit ? taskToEdit.id : Date.now(), 
+      progress: taskToEdit ? taskToEdit.progress : 0, 
+      status: taskToEdit ? taskToEdit.status : "In Progress",
     });
 
     closeModal(); // Fecha o modal após salvar

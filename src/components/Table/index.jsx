@@ -12,15 +12,18 @@ import {
 
 import { RiDeleteBin5Line } from "react-icons/ri";
 import { LiaEditSolid } from "react-icons/lia";
-import { IoEyeOutline } from "react-icons/io5";
+import { BsChatSquareText } from "react-icons/bs";
 import { useState } from 'react';
 import { ConfirmationModal } from '../Confirmation';
 
 
-export const Table = ({ tasks, onDelete, onEdit }) => {
+export const Table = ({ tasks, onDelete, onEdit, onObservation }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [taskToDelete, setTaskToDelete] = useState(null);
 
+  const handleObservationClick = (task) => {
+    onObservation(task);
+  }
 
   const handleEditClick = (task) => {
     onEdit(task);
@@ -81,7 +84,7 @@ export const Table = ({ tasks, onDelete, onEdit }) => {
               <TableCell>{task.status}</TableCell>
               <TableCell>
                 <IconContainer>
-                  <IoEyeOutline size={15} />
+                  <BsChatSquareText size={11} onClick={() => handleObservationClick(task)}/>
                   <LiaEditSolid size={15} onClick={() => handleEditClick(task)} />
                   <RiDeleteBin5Line size={13} onClick={() => handleDeleteClick(task)} />
                 </IconContainer>
