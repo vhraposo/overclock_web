@@ -83,7 +83,6 @@ export function Home() {
   };
   
   const handleView = (task) =>{
-    console.log('Abrindo modal de observação para a task:', task);
     setTaskToView(task);
     openModalObservation();
   }

@@ -18,7 +18,6 @@ export const ObservationModal = ({ isOpen, task, onClose, onIncrementRecords, on
   const [currentObservation, setCurrentObservation] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [indexToDelete, setIndexToDelete] = useState(null);
-  const [localTotalRecords, setLocalTotalRecords] = useState(task?.totalRecords || 0);
 
   const handleInputChange = (e) => {
     setCurrentObservation(e.target.value);
@@ -31,12 +30,11 @@ export const ObservationModal = ({ isOpen, task, onClose, onIncrementRecords, on
       ...prev,
       [task.id]: [
         ...(prev[task.id] || []),
-        { text: currentObservation, date: currentDate }, // Armazena o texto junto com a data
+        { text: currentObservation, date: currentDate },
       ],
     }));
     setCurrentObservation('');
     onIncrementRecords(task.id);
-    setLocalTotalRecords((prev) => prev + 1)
   };
 
   const openConfirmationModal = (index) => {
@@ -50,9 +48,7 @@ export const ObservationModal = ({ isOpen, task, onClose, onIncrementRecords, on
       [task.id]: prev[task.id].filter((_, index) => index !== indexToDelete),
     }));
     setIsModalOpen(false);
-
-    setLocalTotalRecords((prev) => prev - 1); // Decrementa o número de records localmente
-    onDecrementRecords(task.id);
+    onDecrementRecords(task.id); // Atualiza o número total de records no pai
   };
 
   const closeModal = () => {
@@ -63,6 +59,7 @@ export const ObservationModal = ({ isOpen, task, onClose, onIncrementRecords, on
   if (!isOpen) return null;
 
   const taskObservations = observations[task.id] || [];
+  const localTotalRecords = taskObservations.length;
 
   return (
     <ObservationContainer>
@@ -113,7 +110,7 @@ export const ObservationModal = ({ isOpen, task, onClose, onIncrementRecords, on
       <ConfirmationModal
         isOpen={isModalOpen}
         message={`Você tem certeza que deseja deletar essa observação?`}
-        onConfirm={confirmDelete} 
+        onConfirm={confirmDelete}
         onCancel={closeModal}
       />
     </ObservationContainer>
